@@ -21,7 +21,7 @@ public class TodoController {
 		return todoService.getTodos();
 	}
 
-	@PostMapping("/")
+	@PostMapping("/add")
 	public void addTodo(Todo todo) {
 		todoService.addTodo(todo);
 	}
