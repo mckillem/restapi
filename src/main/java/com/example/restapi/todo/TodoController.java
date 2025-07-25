@@ -1,9 +1,6 @@
 package com.example.restapi.todo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -22,7 +19,18 @@ public class TodoController {
 	}
 
 	@PostMapping("/")
-	public void addTodo(Todo todo) {
-		todoService.addTodo(todo);
+	public void addTodo(@RequestBody TodoRequest todoRequest) {
+		todoService.addTodo(todoRequest);
+	}
+
+	@DeleteMapping(path = "/{id}")
+	public void deleteTodo(@PathVariable("id") Long id) {
+		todoService.deleteTodo(id);
+	}
+
+	@PatchMapping(path = "/{id}")
+	public void updateTodo(@PathVariable("id") Long id,
+						   @RequestBody TodoRequest todoRequest) {
+		todoService.updateTodo(id, todoRequest);
 	}
 }
