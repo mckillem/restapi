@@ -18,6 +18,11 @@ public class TodoController {
 		return todoService.getTodos();
 	}
 
+	@GetMapping("/{title}")
+	public Collection<Todo> getTodoByTitle(@PathVariable String title) {
+		return todoService.getTodoByTitle(title);
+	}
+
 	@PostMapping("/")
 	public void addTodo(@RequestBody TodoRequest todoRequest) {
 		todoService.addTodo(todoRequest);
