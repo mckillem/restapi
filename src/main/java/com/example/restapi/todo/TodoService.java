@@ -41,12 +41,13 @@ public class TodoService {
     }
 
     public void updateTodo(Long id, TodoRequest todoRequest) {
-        if (!todoRepository.existsById(id)) {
+        Optional<Todo> byId = todoRepository.findById(id);
+
+        if (byId.isEmpty()) {
             throw new TodoNotFoundException(
                     "Todo with id " + id + " does not exist");
         }
 
-        Optional<Todo> byId = todoRepository.findById(id);
         Todo todoById = byId.get();
 
         Todo todo = Todo.builder()
