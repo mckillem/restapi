@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,7 +16,40 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public void addTodo(Todo todo) {
-        todoRepository.save(todo);
+    public void addTodo(TodoRequest todoRequest) {
+        Todo todo = Todo.builder()
+                .title(todoRequest.getTitle())
+//                .content(todoRequest.getContent())
+//                .description(todoRequest.getDescription())
+//                .createdBy(todoRequest.getCreatedBy())
+//                .state(todoRequest.getState())
+//                .projectId(todoRequest.getProjectId())
+                .build();
+
+        Todo newTodo = todoRepository.saveAndFlush(todo);
+    }
+
+    public void deleteTodo(Long id) {
+        todoRepository.deleteById(id);
+        todoRepository.flush();
+    }
+
+    public void updateTodo(Long id, TodoRequest todoRequest) {
+        Optional<Todo> byId = todoRepository.findById(id);
+        if (byId.isPresent()) {
+            Todo todoById = byId.get();
+
+            Todo todo = Todo.builder()
+                    .id(todoById.getId())
+                    .title(todoRequest.getTitle())
+//                    .content(todoRequest.getContent())
+//                    .description(todoRequest.getDescription())
+//                    .createdBy(todoRequest.getCreatedBy())
+//                    .state(todoRequest.getState())
+//                    .projectId(todoRequest.getProjectId())
+                    .build();
+
+            Todo newTodo = todoRepository.saveAndFlush(todo);
+        }
     }
 }
