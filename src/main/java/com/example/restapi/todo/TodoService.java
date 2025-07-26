@@ -18,6 +18,21 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
+    public Collection<Todo> getTodoByPhrase(String phrase) {
+        Todo todo = Todo.builder()
+                .title(todoRequest.getTitle())
+                .content(todoRequest.getContent())
+                .description(todoRequest.getDescription())
+                .createdAt(LocalDateTime.now())
+//                .modifiedAt(todoRequest.getModifiedAt())
+//                .createdBy(todoRequest.getCreatedBy())
+//                .state(todoRequest.getState())
+//                .projectId(todoRequest.getProjectId())
+                .build();
+
+        return todoRepository.findTodoByTitleContains(phrase);
+    }
+
     public Collection<Todo> getTodoByTitle(String title) {
 
         return todoRepository.findTodoByTitleContains(title);
