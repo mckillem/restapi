@@ -3,5 +3,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "title": "hkugkjzg"
+  "title": "hkugkjzg",
+  "content": "hkugkjzg",
+  "description": "hkugkjzg"
 }
