@@ -23,6 +23,16 @@ public class TodoService {
         return todoRepository.findTodoByTitleContains(title);
     }
 
+    public Collection<Todo> getTodoByContent(String content) {
+
+        return todoRepository.findTodoByContentContains(content);
+    }
+
+    public Collection<Todo> getTodoByDescription(String description) {
+
+        return todoRepository.findTodoByDescriptionContains(description);
+    }
+
     public void addTodo(TodoRequest todoRequest) {
         Todo todo = Todo.builder()
                 .title(todoRequest.getTitle())

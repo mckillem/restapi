@@ -7,7 +7,9 @@ import java.util.Collection;
 
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
-    Collection<Todo> findTodoByTitle(String title);
-
     Collection<Todo> findTodoByTitleContains(String title);
+
+    Collection<Todo> findTodoByContentContains(String title);
+
+    Collection<Todo> findTodoByDescriptionContains(String title);
 }
