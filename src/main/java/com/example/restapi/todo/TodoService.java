@@ -4,6 +4,7 @@ import com.example.restapi.todo.exception.TodoNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -25,8 +26,10 @@ public class TodoService {
     public void addTodo(TodoRequest todoRequest) {
         Todo todo = Todo.builder()
                 .title(todoRequest.getTitle())
-//                .content(todoRequest.getContent())
-//                .description(todoRequest.getDescription())
+                .content(todoRequest.getContent())
+                .description(todoRequest.getDescription())
+                .createdAt(LocalDateTime.now())
+//                .modifiedAt(todoRequest.getModifiedAt())
 //                .createdBy(todoRequest.getCreatedBy())
 //                .state(todoRequest.getState())
 //                .projectId(todoRequest.getProjectId())
@@ -58,8 +61,10 @@ public class TodoService {
         Todo todo = Todo.builder()
                 .id(todoById.getId())
                 .title(todoRequest.getTitle())
-//                    .content(todoRequest.getContent())
-//                    .description(todoRequest.getDescription())
+                .content(todoRequest.getContent())
+                .description(todoRequest.getDescription())
+                .createdAt(todoById.getCreatedAt())
+                .modifiedAt(LocalDateTime.now())
 //                    .createdBy(todoRequest.getCreatedBy())
 //                    .state(todoRequest.getState())
 //                    .projectId(todoRequest.getProjectId())
