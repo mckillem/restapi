@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -19,18 +20,24 @@ public class TodoService {
     }
 
     public Collection<Todo> getTodoByPhrase(String phrase) {
-        Todo todo = Todo.builder()
-                .title(todoRequest.getTitle())
-                .content(todoRequest.getContent())
-                .description(todoRequest.getDescription())
-                .createdAt(LocalDateTime.now())
-//                .modifiedAt(todoRequest.getModifiedAt())
-//                .createdBy(todoRequest.getCreatedBy())
-//                .state(todoRequest.getState())
-//                .projectId(todoRequest.getProjectId())
-                .build();
+        Collection<Todo> todos = getTodos();
 
-        return todoRepository.findTodoByTitleContains(phrase);
+        return todos.stream()
+                .filter(todo -> getTodoByTitle(phrase).isEmpty())
+                .collect(Collectors.toList());
+
+//        Todo todo = Todo.builder()
+//                .title(todoRequest.getTitle())
+//                .content(todoRequest.getContent())
+//                .description(todoRequest.getDescription())
+//                .createdAt(LocalDateTime.now())
+////                .modifiedAt(todoRequest.getModifiedAt())
+////                .createdBy(todoRequest.getCreatedBy())
+////                .state(todoRequest.getState())
+////                .projectId(todoRequest.getProjectId())
+//                .build();
+
+//        return todoRepository.findTodoByTitleContains(phrase);
     }
 
     public Collection<Todo> getTodoByTitle(String title) {
