@@ -3,6 +3,7 @@ POST http://localhost:8080/
 Content-Type: application/json
 
 {
+  "id": 1,
   "title": "obsah",
   "content": "obsah",
   "description": "obsah"

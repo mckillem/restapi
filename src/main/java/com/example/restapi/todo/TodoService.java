@@ -25,6 +25,7 @@ public class TodoService {
 
     public void addTodo(TodoRequest todoRequest) {
         Todo todo = Todo.builder()
+                .id(todoRequest.getId())
                 .title(todoRequest.getTitle())
                 .content(todoRequest.getContent())
                 .description(todoRequest.getDescription())

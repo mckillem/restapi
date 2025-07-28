@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class TodoRequest {
+    private Long id;
     private String title;
     private String content;
     private String description;

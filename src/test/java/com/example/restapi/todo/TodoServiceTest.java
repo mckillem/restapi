@@ -1,100 +1,44 @@
 package com.example.restapi.todo;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
-class TodoServiceTest {
+import static org.assertj.core.api.Assertions.assertThat;
 
-    @Mock
-    private TodoRepository todoRepository;
-    private TodoService underTest;
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+class TodoRepositoryTest {
+    @Autowired
+    private TodoRepository underTest;
 
-    @BeforeEach
-    void setUp() {
-        underTest = new TodoService(todoRepository);
+    @Test
+    void itShouldAddTodo() {
+        // given
+        Long id = 1L;
+        String title = "title";
+        String content = "content";
+        String description = "description";
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        Todo todo = new Todo(id, title, content, description, createdAt, createdAt);
+
+        // when
+        underTest.save(todo);
+
+        // then
+        Optional<Todo> optionalTodo = underTest.findById(id);
+        assertThat(optionalTodo)
+                .isPresent()
+                .hasValueSatisfying(t -> {
+                    assertThat(t.getId()).isEqualTo(id);
+                    assertThat(t.getTitle()).isEqualTo(title);
+                    assertThat(t.getContent()).isEqualTo(content);
+                    assertThat(t.getCreatedAt()).isEqualTo(createdAt);
+                });
     }
-//    @Test
-//    void canGetAllTodos() {
-//        // when
-//        underTest.getTodos();
-//
-//        // then
-//        verify(todoRepository).findAll();
-//    }
-
-//    @Test
-//    void canAddTodo() {
-//        // given
-//        LocalDateTime localDateTime = LocalDateTime.now();
-////        todo: get from db?
-//        Todo todo = new Todo(
-//                "připomínka",
-//                "popis",
-//                localDateTime,
-//                "nekdo",
-//                "nekomu"
-//        );
-//
-//        // when
-//        underTest.addTodo(todo);
-//
-//        // then
-//        ArgumentCaptor<Todo> todoArgumentCaptor = ArgumentCaptor.forClass(Todo.class);
-//
-//        verify(todoRepository).save(todoArgumentCaptor.capture());
-//
-//        Todo capturedTodo = todoArgumentCaptor.getValue();
-//
-//        assertThat(capturedTodo).isEqualTo(todo);
-//    }
-
-//    @Test
-//    void canDeleteTodo() {
-//        // given
-//        Long todoId = 2L;
-//        given(todoRepository.existsById(todoId)).willReturn(true);
-//
-//        // when
-//        underTest.deleteTodo(todoId);
-//
-//        // then
-//        verify(todoRepository).deleteById(todoId);
-//    }
-
-//    @Test
-//    void willThrowWhenDeleteTodoNotFound() {
-//        // given
-//        long todoId = 1;
-//        given(todoRepository.existsById(todoId)).willReturn(false);
-//
-//        // when
-//        // then
-//        assertThatThrownBy(() -> underTest.deleteTodo(todoId))
-//                .isInstanceOf(TodoNotFoundException.class)
-//                .hasMessageContaining( "Todo with id " + todoId + " does not exists");
-//
-//        verify(todoRepository, never()).deleteById(any());
-//    }
-
-//// todo: zjistit, jestli test testuje co má
-//    @Test
-//    void canUpdateTodo() {
-//        // given
-//        long todoId = 1;
-//        given(todoRepository.existsById(todoId)).willReturn(true);
-//        Todo todo = todoRepository.getById(todoId);
-//
-//        // when
-//        underTest.updateTodo(todoId, todo);
-//
-//        // then
-//        verify(todoRepository).findById(todoId);
-//    }
 }
