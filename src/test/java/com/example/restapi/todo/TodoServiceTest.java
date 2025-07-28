@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class TodoRepositoryTest {
+class TodoServiceTest {
     @Autowired
     private TodoRepository underTest;
 
@@ -40,5 +40,49 @@ class TodoRepositoryTest {
                     assertThat(t.getContent()).isEqualTo(content);
                     assertThat(t.getCreatedAt()).isEqualTo(createdAt);
                 });
+    }
+
+    @Test
+    void itShouldGetTodos() {
+        // Given
+        // When
+        // Then
+    }
+
+    @Test
+    void itShouldGetTodoByTitle() {
+        // Given
+        Long id = 1L;
+        String title = "title";
+        String content = "content";
+        String description = "description";
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        Todo todo = new Todo(id, title, content, description, createdAt, createdAt);
+
+        // When
+        underTest.save(todo);
+
+        // Then
+        Optional<Todo> optionalTodo = underTest.findTodoByTitleContains(title);
+        assertThat(optionalTodo)
+                .isPresent()
+                .hasValueSatisfying(c -> {
+                    assertThat(c).isEqualToComparingFieldByField(todo);
+                });
+    }
+
+    @Test
+    void itShouldDeleteTodo() {
+        // Given
+        // When
+        // Then
+    }
+
+    @Test
+    void itShouldUpdateTodo() {
+        // Given
+        // When
+        // Then
     }
 }

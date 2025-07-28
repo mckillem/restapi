@@ -18,7 +18,7 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Collection<Todo> getTodoByTitle(String title) {
+    public Optional<Todo> getTodoByTitle(String title) {
 
         return todoRepository.findTodoByTitleContains(title);
     }

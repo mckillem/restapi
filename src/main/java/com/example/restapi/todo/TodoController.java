@@ -3,6 +3,7 @@ package com.example.restapi.todo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 public class TodoController {
@@ -19,7 +20,7 @@ public class TodoController {
 	}
 
 	@GetMapping("/{title}")
-	public Collection<Todo> getTodoByTitle(@PathVariable String title) {
+	public Optional<Todo> getTodoByTitle(@PathVariable String title) {
 		return todoService.getTodoByTitle(title);
 	}
 
