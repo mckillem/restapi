@@ -1,2 +1,7 @@
+GET http://localhost:8080/todo-filter/tit
 ###
-GET http://localhost:8080/todo-filter/title
+GET http://localhost:8080/todo-filter/con
+###
+GET http://localhost:8080/todo-filter/desc
+###
+GET http://localhost:8080/todo-filter/neco

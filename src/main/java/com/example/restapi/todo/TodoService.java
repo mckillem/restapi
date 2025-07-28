@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,24 +19,8 @@ public class TodoService {
     }
 
     public Collection<Todo> getTodoByPhrase(String phrase) {
-        Collection<Todo> todos = getTodos();
 
-        return todos.stream()
-                .filter(todo -> getTodoByTitle(phrase).isEmpty())
-                .collect(Collectors.toList());
-
-//        Todo todo = Todo.builder()
-//                .title(todoRequest.getTitle())
-//                .content(todoRequest.getContent())
-//                .description(todoRequest.getDescription())
-//                .createdAt(LocalDateTime.now())
-////                .modifiedAt(todoRequest.getModifiedAt())
-////                .createdBy(todoRequest.getCreatedBy())
-////                .state(todoRequest.getState())
-////                .projectId(todoRequest.getProjectId())
-//                .build();
-
-//        return todoRepository.findTodoByTitleContains(phrase);
+        return todoRepository.findTodoByTitleContainsOrContentContainsOrDescriptionContains(phrase, phrase, phrase);
     }
 
     public Collection<Todo> getTodoByTitle(String title) {
