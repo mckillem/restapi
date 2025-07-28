@@ -18,9 +18,26 @@ public class TodoController {
 		return todoService.getTodos();
 	}
 
-	@GetMapping("/{title}")
+	@GetMapping("/todo-filter/{phrase}")
+	public Collection<Todo> getTodoByPhrase(@PathVariable String phrase
+//											@RequestBody TodoFilterRequest todoFilterRequest
+	) {
+		return todoService.getTodoByPhrase(phrase);
+	}
+
+	@GetMapping("/title/{title}")
 	public Collection<Todo> getTodoByTitle(@PathVariable String title) {
 		return todoService.getTodoByTitle(title);
+	}
+
+	@GetMapping("/content/{content}")
+	public Collection<Todo> getTodoByContent(@PathVariable String content) {
+		return todoService.getTodoByContent(content);
+	}
+
+	@GetMapping("/description/{description}")
+	public Collection<Todo> getTodoByDescription(@PathVariable String description) {
+		return todoService.getTodoByDescription(description);
 	}
 
 	@PostMapping("/")

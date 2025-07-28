@@ -18,9 +18,24 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
+    public Collection<Todo> getTodoByPhrase(String phrase) {
+
+        return todoRepository.findTodoByTitleContainsOrContentContainsOrDescriptionContains(phrase, phrase, phrase);
+    }
+
     public Collection<Todo> getTodoByTitle(String title) {
 
         return todoRepository.findTodoByTitleContains(title);
+    }
+
+    public Collection<Todo> getTodoByContent(String content) {
+
+        return todoRepository.findTodoByContentContains(content);
+    }
+
+    public Collection<Todo> getTodoByDescription(String description) {
+
+        return todoRepository.findTodoByDescriptionContains(description);
     }
 
     public void addTodo(TodoRequest todoRequest) {
