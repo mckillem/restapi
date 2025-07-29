@@ -18,13 +18,14 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Collection<Todo> getTodoByTitle(String title) {
+    public Optional<Todo> getTodoByTitle(String title) {
 
         return todoRepository.findTodoByTitleContains(title);
     }
 
     public void addTodo(TodoRequest todoRequest) {
         Todo todo = Todo.builder()
+                .id(todoRequest.getId())
                 .title(todoRequest.getTitle())
                 .content(todoRequest.getContent())
                 .description(todoRequest.getDescription())

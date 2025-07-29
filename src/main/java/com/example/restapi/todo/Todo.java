@@ -1,10 +1,8 @@
 package com.example.restapi.todo;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Todo {
     @Id
-    @GeneratedValue
     private Long id;
     private String title;
     private String content;

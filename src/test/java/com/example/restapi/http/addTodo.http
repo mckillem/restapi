@@ -1,9 +1,18 @@
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "obsah",
+  "content": "obsah",
+  "description": "obsah"
+}
+
 ###
 POST http://localhost:8080/
 Content-Type: application/json
 
 {
-  "title": "obsah",
-  "content": "obsah",
-  "description": "obsah"
+  "id": 2,
+  "title": "obsah"
 }
